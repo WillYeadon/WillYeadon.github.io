@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Fit a straight line</title>
+        <link rel="stylesheet" href="CSS/styles.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="straightline.html">Plot a straight line</a></li>
+                <li><a href="thissite.html">This site</a></li>
+            </ul>
+        </nav>
+        </header>
+    <main>
+        <h2>Short answer</h2>
+        <ul>
+            <li>You need to both plot some data and then use a computational method to fit a straight line.
+                You can do both of these things using Python or Excel.</li>
+            <li>In Excel, to plot the data highlight the requisite columns and insert a chart. Then, use LINEST to create the fit. In Python load in the data
+                 using Pandas then use pyplot.plot to plot it. The curve_fit method from SciPy can then be employed to create the fit.</li>
+            <li>Both LINEST and curve_fit will give you some goodness of fit measures such as r-squared. You can use this to quantify how well
+                you fit describes the data.
+            </li>
+        </ul>
+        <h2>Python</h2>
+        <h3>Creating a plot</h3>
+        <p>This code block will load in data on the erruptions of 'Old Faithful' in Yellowstone 
+            National Park and create a scatter plot. The data is loaded in using <a href="https://pandas.pydata.org/">Pandas</a>
+            and plotted using <a href="https://matplotlib.org/">Matplotlib</a>. These two, along with <a href="https://numpy.org/">NumPy</a>, <a href="https://scikit-learn.org/stable/">scikit-learn</a>> a 
+            and <a href="https://scipy.org/">SciPy</a> form a key part of the <a href="https://developer.fedoraproject.org/tech/languages/python/scipy.html">Scientific Python Stack</a>.
+            <br><br>    
+            Once the data is loaded in, it is extracted into two Pandas series for 'X' (waiting time) and
+            'y' (duration of the erruption). These Pandas series are used by the plot method of pyplot in the
+            matplotlib library to create the plot. The final three lines simply add titles and labels.
+        </p>
+<pre><code class="python">
+# import pandas and pyplot
+import matplotlib.pyplot as plt
+import pandas as pd
+            
+# load our data in
+data = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/geyser.csv')
+X = data['waiting']
+y = data['duration']
+            
+# plot our function
+plt.plot(X, y, 'bo')
+plt.title("Old Faithful Erruptions")
+plt.xlabel('Waiting time between erruptions [Min]')
+plt.ylabel('Erruption duraciton [Min]')
+
+</code></pre>
+    <img src="images/scatter-plot.png" alt="scatter plot of old Faithful waiting time against erruption duration" class="centeredImage">
+    <p>Looking at the data you can see that in general erruption duration will go up with longer wait time between erruptions. 
+        This seems quite sensible however we lack any geological theory to support why this would be the case.
+        As an example, lets say that we posit that the erruption duration is directly proportional to the waiting time between erruptions potentially
+        with an offset of some sort.
+        <br><br>
+        We can express this mathematically as y = mx + c e.g. a straight line. Given this, we can use the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html">method of least
+        squares in the SciPy library</a> to fit this function. With the function fitted, next we can use <a>the r-squared functionality of Scikit-Learn</a> to
+        calculate a value which characterizes the quality of the fit, in this case the r-squared value where a value of 1 equates to the best fit and
+        0 the worst.
+    </p>
+<pre><code>
+# import scipy, sklearn and numpy
+from scipy import optimize
+from sklearn.metrics import r2_score
+import numpy as np
+
+# defining our y = mx + c function
+def f(x, m, c):
+    return m*x + c
+
+# fit the function
+params, covs = optimize.curve_fit(f, xdata = X, ydata = y)
+
+# calculate r^2
+y_pred = f(X, params[0], params[1])
+r2 = r2_score(y, y_pred)
+
+# calculate fit line
+fX = np.arange(X.min() - 5, X.max() + 5, 1)
+fy = f(fX, params[0], params[1]) 
+
+# plot fit
+plt.plot(fX, fy, '-', color='k', linewidth=3.0)
+plt.annotate(xy=[40, 5],
+             text = 'm = {m:.2f}, c = {c:.2f}\n$r^2$ = {r:.2f}'\
+             .format(m = params[0], c = params[1], r = r2),
+            fontsize=12.5)
+
+</code></pre>
+
+<img src="images/scatter-plot-with-line.png" alt="scatter plot of Old Faithful with fit added" class="centeredImageLarge">
+
+
+<p>
+
+</p>
+
+</main>
+</body>
+</html>
