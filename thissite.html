@@ -1,31 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>This site</title>
-        <link rel="stylesheet" href="css/styles.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/bs-styles.css">
+        <title>Personal website</title>
     </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="straightline.html">Fit a straight line</a></li>
-                <li><a class="active" href="thissite.html">This site</a></li>
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top bg-primary">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+<!--            <a class="navbar-brand mr-auto" href="#">Will Yeadon's Website</a>-->
+            <div class="collapse navbar-collapse" id="Navbar">
+            <ul class="navbar-nav mr-auto"> <!-- Margin Right auto - push left as much as possible-->
+                <li class="nav-item"><a class="nav-link" href="./index.html"> Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="./straightline.html"> Fit a straight line</a></li>
+                <li class="nav-item active"><a class="nav-link" href="./thissite.html"> This site</a></li>
             </ul>
-        </nav>
-        </header>
+            </div>
+        </div>
+    </nav>
     <main>
+    <div class="col-12">
     <p>You can make a site like this with just HTML and CSS. If you upload the .html and .CSS files to Github it will host the website for you on GitHub Pages; you can even alias the domain name to make it look more professional.
     <br><br>
     This site is constructed of a series of .html files for the different pages which containt the actual content that you are seeing (like this paragraph) and a CSS file which handles all the styling. 
     By styling I mean everything from the fonts to the position and colours of elements. You can even <a href="https://stackoverflow.com/questions/14046738/how-to-disable-css-in-browser-for-testing-purposes" target="_blank">
-    turn off the CSS</a> if you wish to see what the raw .html files look like.
+    turn off the CSS</a> if you wish to see what the raw .html files look like. To make the styling of the css easier, I've used a framework called <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> which
+    includes many inbuilt classes that respond to your screen size (e.g. whether you are using a mobile or a desktop).
     <br><br>
     There are lots of online resources that show how to do this such as <a href='https://learn.shayhowe.com/html-css/' target="_blank">'Learn to Code HTML and CSS'</a> by Shay Howe. The process is relatively straightforward and 
-    with about 10 hours work you should be able to create a site like this and understand how it works. Alternatively, you could just 
+    with about 10 hours work you should be able to create a site like this and understand how it works. If you want responsive design as well, you should google 'Bootstrap 5 tutorial' or similar. To learn, I used a tutorial which 
+    I subsequently found out was for an older version of Bootstrap so I won't recommend it here. Alternatively, you could just 
     clone my repository on GitHub and change the content. This should only take 1 hour.
     </p>
+    </div>
     </main>
 </body>
 </html>
