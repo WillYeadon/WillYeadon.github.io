@@ -1,14 +1,14 @@
- .bg-primary {
+#jumbo {
+  padding-top: 70px;
+}
+
+.bg-primary {
     background-color: #29303b !important;
- }
+}
 
- main {
-   padding-top: 70px;
- }
-
- p {
+p {
    padding: 10px;
- }
+}
 
 #carousel-header {
   text-align: center;
