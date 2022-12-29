@@ -1,5 +1,5 @@
-import bot from './assets/bot.png';
-import user from './assets/user.png';
+//import bot from './imgs/bot.png';
+//import user from './imgs/user.png';
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
@@ -37,6 +37,9 @@ function generateUniqueId() {
 
   return `id-${timestamp}-${hexaDecimalString}`;
 }
+
+let bot = null;
+let user = null;
 
 function chatStrip(isAi, value, uniqueId) {
   return (
